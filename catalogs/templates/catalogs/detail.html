@@ -52,7 +52,7 @@ tr {
 		<td class='item-name'>{{ item_name.grouper }}</td>
 			<td class='version'>
 				{% for item in item_name.list|dictsortreversed:'version' %}
-					<a href='/catalog/{{ catalog_name }}/{{ item.index }}'>{{ item.version }}</a><br />
+					<a href='/munkiwebadmin/catalog/{{ catalog_name }}/{{ item.index }}'>{{ item.version }}</a><br />
 				{% endfor %}
 			</td>
 		</tr>

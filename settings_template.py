@@ -67,7 +67,7 @@ DATABASES = {
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Los_Angeles'
+TIME_ZONE = 'America/Chicago'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -100,7 +100,8 @@ STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
+#STATIC_URL = '/static/'
+STATIC_URL = '/static_munkiwebadmin/'
 
 # URL prefix for admin static files -- CSS, JavaScript and images.
 # Make sure to use a trailing slash.
@@ -153,8 +154,11 @@ else:
     )
 
 
-LOGIN_URL='/login/'
-LOGIN_REDIRECT_URL='/report/overview'
+#LOGIN_URL='/login/'
+LOGIN_URL='/munkiwebadmin/login/'
+
+#LOGIN_REDIRECT_URL='/report/overview'
+LOGIN_REDIRECT_URL='/munkiwebadmin/report/overview'
 
 ROOT_URLCONF = 'munkiwebadmin.urls'
 

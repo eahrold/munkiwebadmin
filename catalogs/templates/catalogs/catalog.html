@@ -52,7 +52,7 @@
   } );
 
 	function getCatalogItem(catalog_name, catalog_index, item_name, item_version)     {
-		var catalogItemURL = '/catalog/' + catalog_name + '/' + catalog_index + '/';
+		var catalogItemURL = '/munkiwebadmin/catalog/' + catalog_name + '/' + catalog_index + '/';
 		$.get(catalogItemURL, function(data) {
 			$('#catalog_item_detail').html(data);
 		});
@@ -75,7 +75,7 @@
           </a>
           <ul class="dropdown-menu">
             {% for item in catalog_list %}
-              <li><a href="/catalog/{{ item }}">{{ item }}</a></li>
+              <li><a href="/munkiwebadmin/catalog/{{ item }}">{{ item }}</a></li>
             {% endfor %}
           </ul>
         </span></strong>
