@@ -100,7 +100,7 @@
         </tr>
         <tr>
           <th>Remote IP:</th>
-          <td>{{ machine.remote_ip }}</td>
+          <td><a href=vnc://{{ machine.remote_ip }}>{{ machine.remote_ip }}</a></td>
         </tr>
         {% if 'MachineInfo' in report %}
         <tr>
