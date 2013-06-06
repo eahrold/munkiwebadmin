@@ -37,7 +37,7 @@
 			      class='error lineitem'>{{ item }}
 			    {% else %}
 			      class='lineitem'>
-			      <a href='/munkiwebadmin/catalog/{{ item }}/'>{{ item }}</a>
+			      <a href='{% url base %}catalog/{{ item }}/'>{{ item }}</a>
 			    {% endif %}
 			    </li>
 			{% endfor %}

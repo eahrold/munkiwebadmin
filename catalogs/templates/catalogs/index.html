@@ -6,7 +6,7 @@
 {% if catalog_list %}
     <ul>
     {% for catalog in catalog_list %}
-        <li><a href="/munkiwebadmin/catalog/{{ catalog }}/">{{ catalog }}</a></li>
+        <li><a href="{% url base %}catalog/{{ catalog }}/">{{ catalog }}</a></li>
     {% endfor %}
     </ul>
 {% else %}

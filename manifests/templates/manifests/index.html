@@ -20,7 +20,7 @@
 <div class="row">
 <div class="span5">
 
-<form class='well form-horizontal' id='search' action='/munkiwebadmin/manifest/' method='get'>
+<form class='well form-horizontal' id='search' action='{% url base %}manifest/' method='get'>
 	<label for='section'>Section:</label>
 	<select class='span2' id='section' name='section'>
     <option value='manifest_name' {% if section == 'manifest_name' %} selected='selected' {% endif %}>manifest name</option>

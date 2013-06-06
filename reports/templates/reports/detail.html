@@ -24,7 +24,7 @@
 	 });
 
     $.ajax({
-        url: '/munkiwebadmin/report/warranty/' + serial,
+        url: '{% url base %}report/warranty/' + serial,
         type: 'GET',
         dataType: 'html',
         success: function(data, textStatus, xhr) {
