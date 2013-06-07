@@ -1,4 +1,8 @@
 /* Javascript for manifests/index template */
+
+// set this to the subpath you want to run munki on, if none use ''
+var munkiWebAdminSubpath = '/munkiwebadmin' 
+
 $(document).ready(function(){
     $('html').ajaxSend(function(event, xhr, settings) {
 	    function getCookie(name) {
@@ -21,7 +25,7 @@ $(document).ready(function(){
 	        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
 	    }
 	});
-
+	
 	var sizeManifestsTableToFit = function()
 	{
     var padding = $("#new_manifest").height();
@@ -56,7 +60,7 @@ $(document).ready(function(){
 
 function deleteManifest() {
   var manifest_name = $('.manifest_name').attr('id');
-  location.href='../manifest/delete/' + manifest_name.replace(/\//g, ':');
+  location.href=munkiWebAdminSubpath + '/manifest/delete/' + manifest_name.replace(/\//g, ':');
 }
 
 function cleanDetailPane() {
@@ -89,7 +93,7 @@ function getManifestDetail(manifest_name) {
 	$("#imgProgress").show();
     cleanDetailPane();
 	// get new detail for the pane
-	var manifestURL = '../manifest/detail/' + manifest_name.replace(/\//g, ':');
+	var manifestURL = munkiWebAdminSubpath + '/manifest/detail/' + manifest_name.replace(/\//g, ':');
 	$.get(manifestURL, function(data) {
 		$('#detail').html(data);
 		$('.edit').click(function(){
@@ -169,11 +173,11 @@ function makeEditableItem(manifest_name, editable_div) {
 	var text_value = editable_div.text();
 	var input_box = $("<input type='text' id='" + text_value + "' class='lineiteminput' value='" + text_value + "' />");
 	var grandparent_id = editable_div.parent().parent().attr('id');
-	var source_url = "../manifest/json/suggested_items/" + manifest_name;
+	var source_url = munkiWebAdminSubpath + "/manifest/json/suggested_items/" + manifest_name;
 	if (grandparent_id == 'catalogs') {
-	  source_url = "../manifest/json/catalog_names/";
+	  source_url = munkiWebAdminSubpath + "/manifest/json/catalog_names/";
 	} else if (grandparent_id == 'included_manifests') {
-	  source_url = "../manifest/json/manifest_names/";
+	  source_url = munkiWebAdminSubpath + "/manifest/json/manifest_names/";
 	}
 	editable_div.replaceWith(input_box);
 	input_box.autocomplete({
@@ -235,7 +239,7 @@ function getManifestDetailFromDOMAndSave() {
 		}
 	});
 	var postdata = JSON.stringify(manifest)
-	var postURL = '../manifest/detail/' + manifest_name.replace(/\//g, ':');
+	var postURL = munkiWebAdminSubpath + '/manifest/detail/' + manifest_name.replace(/\//g, ':');
 	//alert(postdata);
 	//console.log(postdata);
 	$.ajax({

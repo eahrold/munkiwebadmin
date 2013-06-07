@@ -51,7 +51,7 @@ def new(request):
             Manifest.write(manifest_name, manifest,
                            request.user)
             return HttpResponseRedirect(
-                '../manifest/')
+                '../manifest/view/%s' % manifest_name)
         else:
             # form not valid, try again
             c = RequestContext(request, {'form': form})
