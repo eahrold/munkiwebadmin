@@ -154,7 +154,7 @@ else:
     )
 
 LOGIN_URL=os.path.join('/',RUN_ON_SUBPATH,'login/')
-LOGIN_REDIRECT_URL=(os.path.join('/',RUN_ON_SUBPATH,'/report/overview/')
+LOGIN_REDIRECT_URL=os.path.join('/',RUN_ON_SUBPATH,'/report/overview/')
 
 ROOT_URLCONF = 'munkiwebadmin.urls'
 

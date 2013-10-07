@@ -7,7 +7,7 @@ PROJECT_NAME='munkiwebadmin'
 PROJECT_SETTINGS_DIR=""
 EXAMPLE_SETTINGS_FILE="settings_template.py"
 
-GIT_REPO="https://github.com/eahrold/munkiwebadmin-server.git"
+GIT_REPO="https://github.com/eahrold/munkiwebadmin.git"
 USER_NAME='munkiwebadmin'
 GROUP_NAME='munki'
 APACHE_SUBPATH='munkiwebadmin'
@@ -71,7 +71,7 @@ check_ID(){
 	[[ -n $ID ]] && ((ID++)) || ID=400
 	
 	local __rc=false
-	while [ $__rc -eq false ]; do
+	while [ $__rc == false ]; do
 		local IDCK=$(/usr/bin/dscl . list /$1 $2 | awk '{print $2}'| grep -c ${ID})
 		if [ $IDCK -eq 0 ]; then
 			__rc=true
@@ -112,22 +112,27 @@ install(){
 }
 
 configure(){
-	cp "${PROJECT_SETTINGS_DIR}/${EXAMPLE_SETTINGS_FILE}" "${PROJECT_SETTINGS_DIR}/settings.py"
-	local SETTINGS_FILE="${PROJECT_SETTINGS_DIR}/settings.py"
+	if [ "${PROJECT_SETTINGS_DIR}" != "" ]; then
+		eval_dir PROJECT_SETTINGS_DIR
+	fi
+		
+	cp "${PROJECT_SETTINGS_DIR}${EXAMPLE_SETTINGS_FILE}" "${PROJECT_SETTINGS_DIR}settings.py"
+	local SETTINGS_FILE="${PROJECT_SETTINGS_DIR}settings.py"
+	
 	
 	cecho purple "Now we'll do some basic configuring to the settings.py file"
 	cread question "Where is your munki repo? " MUNKI_REPO
 	
 	local __rc=false
-	while [ $__rc -eq false ]; do
+	while [ $__rc == false ]; do
 	if [ -d ${MUNKI_REPO} ];then
-		ised "MUNKI_REPO_DIR" "MUNKI_REPO_DIR = '${MUNKI_REPO}'"
+		ised "MUNKI_REPO_DIR" "MUNKI_REPO_DIR = '${MUNKI_REPO}'" "${SETTINGS_FILE}"
 		__rc=true
 	else
 		cecho alert "there isn't anything at that path"
-		cread alert "are you sure you want to use that?" yesno
-		if [ $REPLY =~ ^[Yy]$ ];then
-			ised "MUNKI_REPO_DIR" "MUNKI_REPO_DIR = '${MUNKI_REPO}'"
+		cread alert "are you sure you want to use that (y/n)?" yesno
+		if [[ $REPLY =~ ^[Yy]$ ]];then
+			ised "MUNKI_REPO_DIR" "MUNKI_REPO_DIR = '${MUNKI_REPO}'" "${SETTINGS_FILE}"
 			__rc=true
 		fi
 	fi
@@ -135,7 +140,7 @@ configure(){
 	
 	cread question "Do you want to run on subpath ${APACHE_SUBPATH}? " yesno
 	if [[ $REPLY =~ ^[Yy]$ ]];then
-		ised "RUN_ON_SUBPATH =" "RUN_ON_SUBPATH = ${APACHE_SUBPATH}"	
+		ised "RUN_ON_SUBPATH =" "RUN_ON_SUBPATH = ${APACHE_SUBPATH}" "${SETTINGS_FILE}"	
 	fi
 	
 	cread question "Run in DEBUG mode [y/n]? " yesno
@@ -274,7 +279,7 @@ __main__(){
 	pre_condition_test
 	clear
 	local __rc=false
-	while [ $__rc -eq false ]; do
+	while [ $__rc == false ]; do
 	cecho alert "You are about to run the $PROJECT_NAME installer"
 	cecho alert "There's a few things to get out of the way"
 	cecho question "First we need to determine what user should own the webapp process" 
@@ -309,7 +314,7 @@ __main__(){
 	fi
 	
 	__rc=false
-	while [ $__rc -eq false  ]; do
+	while [ $__rc == false  ]; do
 		cecho question "Where Would you like to install the Virtual Environment?"
 		
 		if [ "${OSX_SERVER_INSTALL}" == true ]; then
