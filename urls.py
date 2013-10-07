@@ -5,6 +5,13 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
 admin.autodiscover()
 
+if settings.RUNNING_ON_APACHE:
+    #The WSGIScriptAlias in the apache config file handles the subpathing so here it's blank
+    sub_path = ''
+else:
+    sub_path=settings.RUN_ON_SUBPATH
+    
+
 urlpatterns = patterns('',
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
@@ -12,18 +19,18 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     
-    url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
-    url(r'^logout/$', 'django.contrib.auth.views.logout_then_login', name='logout'),
-    url(r'^manifest/', include('manifests.urls')),
-    url(r'^catalog/', include('catalogs.urls')),
-    url(r'^report/', include('reports.urls')),
-    url(r'^inventory/', include('inventory.urls')),
-    url(r'^licenses/', include('licenses.urls')),
+    url(r'^%slogin/$'% sub_path, 'django.contrib.auth.views.login', name='login'),
+    url(r'^%slogout/$'% sub_path, 'django.contrib.auth.views.logout_then_login', name='logout'),
+    url(r'^%smanifest/'% sub_path, include('manifests.urls')),
+    url(r'^%scatalog/'% sub_path, include('catalogs.urls')),
+    url(r'^%sreport/'% sub_path, include('reports.urls')),
+    url(r'^%sinventory/'% sub_path, include('inventory.urls')),
+    url(r'^%slicenses/'% sub_path, include('licenses.urls')),
     # for compatibility with MunkiReport scripts
-    url(r'^update/', include('reports.urls')),
-    url(r'^lookup/', include('reports.urls')),
-    url(r'^$', include('reports.urls')),
-    url(r'^$', 'base', name='base')
+    url(r'^%supdate/'% sub_path, include('reports.urls')),
+    url(r'^%slookup/'% sub_path, include('reports.urls')),
+    url(r'^%s$'% sub_path, include('reports.urls')),
+    url(r'^%s$'% sub_path, 'base', name='base')
 )
 # comment out the following if you are serving
 # static files a different way

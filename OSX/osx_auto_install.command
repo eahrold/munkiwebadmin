@@ -133,6 +133,11 @@ configure(){
 	fi
 	done
 	
+	cread question "Do you want to run on subpath ${APACHE_SUBPATH}? " yesno
+	if [[ $REPLY =~ ^[Yy]$ ]];then
+		ised "RUN_ON_SUBPATH =" "RUN_ON_SUBPATH = ${APACHE_SUBPATH}"	
+	fi
+	
 	cread question "Run in DEBUG mode [y/n]? " yesno
 	if [[ $REPLY =~ ^[Yy]$ ]];then
 		ised "DEBUG =" "DEBUG = True" "${SETTINGS_FILE}"

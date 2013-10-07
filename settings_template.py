@@ -1,8 +1,12 @@
 # Django settings for munkiwebadmin project.
 import os
 
+## Set this to true if you're running on Apache via wsgi module
 RUNNING_ON_APACHE=False
-RUN_ON_SUBPATH="/"
+
+## set this to the subpath you plan on running 
+## make sure to include a trailing slash (e.g. munkiwebadmin/ )
+RUN_ON_SUBPATH=""
 
 USE_LDAP = False
 # LDAP authentication support
