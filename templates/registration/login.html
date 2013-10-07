@@ -4,7 +4,7 @@
 {% block content %}
 {% if user.is_authenticated %}
     <p>Welcome, {{ user.username }}.</p>
-	<p><input class='btn' type="button" value="Logout" onClick="document.location.href='/logout';" /></p>
+	<p><input class='btn' type="button" value="Logout" onClick="document.location.href='{% url base %}logout';" /></p>
 {% else %}
 	{% if form.errors %}
 		<p>Your username and password didn't match. Please try again.</p>

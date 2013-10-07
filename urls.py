@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^update/', include('reports.urls')),
     url(r'^lookup/', include('reports.urls')),
     url(r'^$', include('reports.urls')),
+    url(r'^$', 'base', name='base')
 )
 # comment out the following if you are serving
 # static files a different way

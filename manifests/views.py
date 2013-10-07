@@ -51,7 +51,7 @@ def new(request):
             Manifest.write(manifest_name, manifest,
                            request.user)
             return HttpResponseRedirect(
-                '/manifest/view/%s' % manifest_name)
+                '../manifest/view/%s' % manifest_name)
         else:
             # form not valid, try again
             c = RequestContext(request, {'form': form})
@@ -70,7 +70,7 @@ def delete(request, manifest_name=None):
         return HttpResponse(json.dumps('error'))
     if request.method == 'POST':
         Manifest.delete(manifest_name, request.user)
-        return HttpResponseRedirect('/manifest/')
+        return HttpResponseRedirect('../../../manifest/')
     else:
         c = RequestContext(request, {'manifest_name': manifest_name})
         c.update(csrf(request))

@@ -27,7 +27,7 @@
                 </a>
               </td>
               <td>{{ report.console_user }}</td>
-              <td class='ip'>{{ report.machine.remote_ip }}</td>
+              <td class='ip'><a href=vnc://{{ report.machine.remote_ip }}>{{ report.machine.remote_ip }}</a></td>
               <td>
                   {{ report.timestamp|date:"Y-m-d H:i" }}
                   {% if report.updating %}
