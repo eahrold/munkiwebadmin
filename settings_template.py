@@ -1,6 +1,9 @@
 # Django settings for munkiwebadmin project.
 import os
 
+RUNNING_ON_APACHE=False
+RUN_ON_SUBPATH="/"
+
 USE_LDAP = False
 # LDAP authentication support
 if USE_LDAP:
@@ -29,6 +32,7 @@ if USE_LDAP:
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+ALLOWED_HOSTS = []
 
 ADMINS = (
      ('Foo Bar', 'foo.bar@example.com'),
@@ -145,8 +149,8 @@ else:
         'django.contrib.auth.backends.ModelBackend',
     )
 
-LOGIN_URL='/login/'
-LOGIN_REDIRECT_URL='/report/overview'
+LOGIN_URL=os.path.join('/',RUN_ON_SUBPATH,'login/')
+LOGIN_REDIRECT_URL=(os.path.join('/',RUN_ON_SUBPATH,'/report/overview/')
 
 ROOT_URLCONF = 'munkiwebadmin.urls'
 
