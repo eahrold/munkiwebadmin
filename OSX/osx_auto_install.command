@@ -18,7 +18,7 @@ APACHE_CONFIG_FILE='httpd_munkiwebadmin.conf'
 WSGI_FILE='munkiwebadmin.wsgi'
 
 VIRENV_NAME='munkiwebadmin_env'
-PIP_REQUIREMENTS="setup/requirements.txt"
+PIP_REQUIREMENTS="/setup/requirements.txt"
 OSX_SERVER_WSGI_DIR="/Library/Server/Web/Data/WebApps/"
 OSX_SERVER_APACHE_DIR="/Library/Server/Web/Config/apache2/"
 OSX_SERVER_SITES_DEFAULT="/Library/Server/Web/Data/Sites/"
@@ -97,12 +97,12 @@ install(){
 	cd "${VIR_ENV}"
 	
 	if [ ! -d "${VIR_ENV}/${PROJECT_NAME}" ]; then
-		 git clone "${GIT_REPO}" ./"${PROJECT_NAME}"
-	 else
-		 cd "${PROJECT_NAME}"
-		 git pull
-		 cd ..
-	 fi
+		git clone "${GIT_REPO}" ./"${PROJECT_NAME}"
+	else
+		cd "${PROJECT_NAME}"
+		git pull
+		cd ..
+	fi
 	
 	source bin/activate
 	pip install -r ./"${PROJECT_NAME}/${PIP_REQUIREMENTS}"
@@ -118,7 +118,6 @@ configure(){
 		
 	cp "${PROJECT_SETTINGS_DIR}${EXAMPLE_SETTINGS_FILE}" "${PROJECT_SETTINGS_DIR}settings.py"
 	local SETTINGS_FILE="${PROJECT_SETTINGS_DIR}settings.py"
-	
 	
 	cecho purple "Now we'll do some basic configuring to the settings.py file"
 	cread question "Where is your munki repo? " MUNKI_REPO
@@ -140,7 +139,7 @@ configure(){
 	
 	cread question "Do you want to run on subpath ${APACHE_SUBPATH}? " yesno
 	if [[ $REPLY =~ ^[Yy]$ ]];then
-		ised "RUN_ON_SUBPATH =" "RUN_ON_SUBPATH = ${APACHE_SUBPATH}" "${SETTINGS_FILE}"	
+		ised "RUN_ON_SUBPATH" "RUN_ON_SUBPATH = ${APACHE_SUBPATH}" "${SETTINGS_FILE}"	
 	fi
 	
 	cread question "Run in DEBUG mode [y/n]? " yesno
