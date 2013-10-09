@@ -10,7 +10,6 @@ EXAMPLE_SETTINGS_FILE="settings_template.py"
 GIT_REPO="https://github.com/eahrold/munkiwebadmin.git"
 USER_NAME='munkiwebadmin'
 GROUP_NAME='munki'
-
 APACHE_SUBPATH='munkiwebadmin'
 
 OSX_CONF_FILE_DIR="OSX"
@@ -48,7 +47,7 @@ make_user_and_group(){
 		dscl . create /Users/"${USER_NAME}" passwd *
 		dscl . create /Users/"${USER_NAME}" UniqueID "${USER_ID}"
 	else
-		cecho bold "User ${USER_NAME} already exists, skipping..."
+		cecho bold "User ${GROUP_NAME} already exists, skipping..."
 	fi
 
 	
@@ -140,7 +139,7 @@ configure(){
 	
 	cread question "Do you want to run on subpath ${APACHE_SUBPATH}? " yesno
 	if [[ $REPLY =~ ^[Yy]$ ]];then
-		ised "RUN_ON_SUBPATH" "RUN_ON_SUBPATH = '${APACHE_SUBPATH}'" "${SETTINGS_FILE}"	
+		ised "RUN_ON_SUBPATH" "RUN_ON_SUBPATH = [True,'${APACHE_SUBPATH}']" "${SETTINGS_FILE}"	
 	fi
 	
 	cread question "Run in DEBUG mode [y/n]? " yesno
@@ -283,7 +282,7 @@ __main__(){
 	cecho alert "You are about to run the $PROJECT_NAME installer"
 	cecho alert "There's a few things to get out of the way"
 	cecho question "First we need to determine what user should own the webapp process" 
-	cecho purple "1) create user ${USER_NAME} and group ${GROUP_NAME}" "(recommended)"
+	cecho purple "1) create a new user and group" "(recommended)"
 	cecho purple "2) yourself" "(fine for testing)"
 	cecho purple "3) the www user" "(if you're running on both http and https)" 
 		read -e -p "Please Choose: " -n 1 -r

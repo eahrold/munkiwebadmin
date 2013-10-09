@@ -10,7 +10,7 @@ if settings.RUNNING_ON_APACHE:
     #The WSGIScriptAlias in the apache config file handles the subpathing so here it's blank
     sub_path = ''
 else:
-    sub_path=settings.RUN_ON_SUBPATH
+    sub_path= settings.RUN_ON_SUBPATH
     
 
 urlpatterns = patterns('',

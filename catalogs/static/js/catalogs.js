@@ -1,4 +1,5 @@
 // Javascript for catalogs views
+var sub_path = "/munkiwebadmin"
 
 $(document).ready(function() {
    $('#catalog_items').dataTable({
@@ -14,7 +15,7 @@ $(document).ready(function() {
 } );
 
 function getCatalogItem(catalog_name, catalog_index, item_name, item_version)     {
-    var catalogItemURL = '/catalog/' + catalog_name + '/' + catalog_index + '/';
+    var catalogItemURL = sub_path + '/catalog/' + catalog_name + '/' + catalog_index + '/';
     $.get(catalogItemURL, function(data) {
         $('#catalog_item_detail').html(data);
     });

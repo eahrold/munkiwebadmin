@@ -6,7 +6,13 @@ RUNNING_ON_APACHE=False
 
 ## set this to the subpath you plan on running 
 ## make sure to include a trailing slash (e.g. munkiwebadmin/ )
-RUN_ON_SUBPATH=""
+RUN_ON_SUBPATH=[False,'munkiwebadmin/']
+
+if RUN_ON_SUBPATH[0]:
+    SUB_PATH = RUN_ON_SUBPATH[1]
+else:
+    SUB_PATH=''
+
 
 USE_LDAP = False
 # LDAP authentication support
@@ -108,7 +114,10 @@ STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static_munkiwebadmin/'
+if RUNNING_ON_APACHE == True:
+    STATIC_URL = '/static_munkiwebadmin/'
+else:
+    STATIC_URL = '/'+SUB_PATH+'/static_munkiwebadmin/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -153,8 +162,9 @@ else:
         'django.contrib.auth.backends.ModelBackend',
     )
 
-LOGIN_URL=os.path.join('/',RUN_ON_SUBPATH,'login/')
-LOGIN_REDIRECT_URL=os.path.join('/',RUN_ON_SUBPATH,'/report/overview/')
+LOGIN_URL='/'+SUB_PATH+'login/'
+LOGOUT_URL='/'+SUB_PATH+'logout/'
+LOGIN_REDIRECT_URL='/'+SUB_PATH+'report/overview/'
 
 ROOT_URLCONF = 'munkiwebadmin.urls'
 

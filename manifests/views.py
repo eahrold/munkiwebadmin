@@ -17,6 +17,10 @@ import fnmatch
 import json
 import os
 
+
+SUB_PATH=settings.SUB_PATH
+LOGIN_URL='/'+SUB_PATH+'login/')
+
 MANIFEST_USERNAME_IS_EDITABLE = settings.MANIFEST_USERNAME_IS_EDITABLE
 MANIFEST_USERNAME_KEY = settings.MANIFEST_USERNAME_KEY
 
@@ -36,7 +40,7 @@ class NewManifestForm(forms.Form):
         
     
 @login_required
-@permission_required('reports.add_machine', login_url='/login/')
+@permission_required('reports.add_machine', login_url=LOGIN_URL)
 def new(request):
     if request.method == 'POST': # If the form has been submitted...
         form = NewManifestForm(request.POST) # A form bound to the POST data
@@ -51,7 +55,7 @@ def new(request):
             Manifest.write(manifest_name, manifest,
                            request.user)
             return HttpResponseRedirect(
-                '../manifest/view/%s' % manifest_name)
+                '/%smanifest/view/%s' % (SUB_PATH,manifest_name))
         else:
             # form not valid, try again
             c = RequestContext(request, {'form': form})
@@ -64,13 +68,13 @@ def new(request):
     
 
 @login_required
-@permission_required('reports.delete_machine', login_url='/login/')
+@permission_required('reports.delete_machine', login_url=LOGIN_URL)
 def delete(request, manifest_name=None):
     if not request.user.has_perm('reports.delete_machine'):
         return HttpResponse(json.dumps('error'))
     if request.method == 'POST':
         Manifest.delete(manifest_name, request.user)
-        return HttpResponseRedirect('../../../manifest/')
+        return HttpResponseRedirect('/%smanifest/'%SUB_PATH)
     else:
         c = RequestContext(request, {'manifest_name': manifest_name})
         c.update(csrf(request))

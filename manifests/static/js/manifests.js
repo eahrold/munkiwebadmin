@@ -1,5 +1,7 @@
 /* Javascript for manifests/index template */
 
+var sub_path='/munkiwebadmin'
+
 $(document).ajaxSend(function(event, xhr, settings) {
     function getCookie(name) {
         var cookieValue = null;
@@ -41,7 +43,7 @@ $(document).ready(function(){
 
 function deleteManifest() {
   var manifest_name = $('.manifest_name').attr('id');
-  location.href='/manifest/delete/' + manifest_name.replace(/\//g, ':');
+  location.href=sub_path + '/manifest/delete/' + manifest_name.replace(/\//g, ':');
 }
 
 function cleanDetailPane() {
@@ -73,7 +75,7 @@ function getManifestDetail(manifest_name) {
     $("#imgProgress").show();
     cleanDetailPane();
     // get new detail for the pane
-    var manifestURL = '/manifest/detail/' + manifest_name.replace(/\//g, ':');
+    var manifestURL = sub_path + '/manifest/detail/' + manifest_name.replace(/\//g, ':');
     $.get(manifestURL, function(data) {
         $('#detail').html(data);
         $('.edit').click(function(){
@@ -218,7 +220,7 @@ function getManifestDetailFromDOMAndSave() {
         }
     });
     var postdata = JSON.stringify(manifest)
-    var postURL = '/manifest/detail/' + manifest_name.replace(/\//g, ':');
+    var postURL = sub_path + '/manifest/detail/' + manifest_name.replace(/\//g, ':');
     //alert(postdata);
     //console.log(postdata);
     $.ajax({

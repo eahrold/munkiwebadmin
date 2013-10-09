@@ -38,7 +38,7 @@
 			        <div class='editable'>{{ item }}</div>
 			    {% else %}
 			      class='lineitem'>
-			      <a href='/catalog/{{ item }}/'>
+			      <a href='{%url "base" %}catalog/{{ item }}/'>
 			          <div class='editable'>{{ item }}</div>
 			      </a>
 			    {% endif %}
