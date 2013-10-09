@@ -1,0 +1,19 @@
+{% if catalog %}
+	<div id="item_name">{{ catalog_name }}</div>
+	<table class='catalog_items'>
+	<tr><th>Name</th><th>Version</th></tr>
+    {% regroup catalog|dictsort:'name' by name as catalog_items %}
+	{% for item_name in catalog_items %}
+		<tr>
+		<td class='item-name'>{{ item_name.grouper }}</td>
+			<td class='version'>
+				{% for item in item_name.list|dictsortreversed:'version' %}
+					<a href='{%url 'base' %}catalog/{{ catalog_name }}/{{ item.index }}'>{{ item.version }}</a><br />
+				{% endfor %}
+			</td>
+		</tr>
+	{% endfor %}
+	</table>
+{% else %}
+    <p>Catalog {{ catalog_name }} is empty.</p>
+{% endif %}
