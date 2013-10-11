@@ -117,7 +117,7 @@ STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 if RUNNING_ON_APACHE == True:
     STATIC_URL = '/static_munkiwebadmin/'
 else:
-    STATIC_URL = '/'+SUB_PATH+'/static_munkiwebadmin/'
+    STATIC_URL = os.path.join('/',SUB_PATH,'/static/')
 
 # Additional locations of static files
 STATICFILES_DIRS = (
