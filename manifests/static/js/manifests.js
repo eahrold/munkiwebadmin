@@ -1,6 +1,6 @@
 /* Javascript for manifests/index template */
 
-var sub_path='/munkiwebadmin'
+var sub_path=''
 
 $(document).ajaxSend(function(event, xhr, settings) {
     function getCookie(name) {

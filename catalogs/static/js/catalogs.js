@@ -1,5 +1,5 @@
 // Javascript for catalogs views
-var sub_path = "/munkiwebadmin"
+var sub_path = ''
 
 $(document).ready(function() {
    $('#catalog_items').dataTable({

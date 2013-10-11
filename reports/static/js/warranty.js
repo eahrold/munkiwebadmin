@@ -1,6 +1,7 @@
 /*
     Warranty scripts by Adam Reed <adam.reed@anu.edu.au>
 */
+var sub_path=''
 
 function get_warranty_status(serial) {
        $.ajaxSetup({
@@ -16,7 +17,7 @@ function get_warranty_status(serial) {
        });
 
   $.ajax({
-      url: '/report/warranty/' + serial,
+      url: sub_path + '/report/warranty/' + serial,
       type: 'GET',
       dataType: 'html',
       success: function(data, textStatus, xhr) {
