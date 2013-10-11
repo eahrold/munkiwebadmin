@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#set -xv
+##set -xv
 export PATH="$PATH:/usr/local/bin:/usr/local/sbin:/Applications/Xcode.app/Contents/Developer/usr/bin"
 
 PROJECT_NAME='munkiwebadmin'
@@ -61,10 +61,11 @@ custom_config(){
 		JS_FILE_LIST=( reports/static/js/warranty.js 
 						catalogs/static/js/catalogs.js 
 						manifests/static/js/manifests.js )
-		for i in ${JS_File_LIST[@]} ; do
-			ised "var sub_path" "var sub_path = /${APACHE_SUBPATH}" "${VIR_ENV}/${PROJECT_NAME}/${i}"
+		for i in ${JS_FILE_LIST[@]} ; do
+			local __file=$(eval echo ${VIR_ENV}${PROJECT_NAME}/${i})
+			ised "var sub_path" "var sub_path = '/${APACHE_SUBPATH}'" "${__file}"
 		done		
-	fi
+	fi	
 }
 make_user_and_group(){
 	cecho bold "Checking user and group..."
@@ -138,7 +139,7 @@ install(){
 	fi
 	
 	source bin/activate
-	if [ -f "./${PROJECT_NAME}/${DJANGO_REQUIREMENTS_FILE}"] ;then
+	if [ -f "./${PROJECT_NAME}/${DJANGO_REQUIREMENTS_FILE}" ] ;then
 		pip install -r ./"${PROJECT_NAME}/${DJANGO_REQUIREMENTS_FILE}"
 	elif [ ${#DJANGO_PIP_REQUIREMENTS[@]} -gt 0 ]; then
 		for i in ${DJANGO_REQUIREMENTS[@]}; do
@@ -361,7 +362,7 @@ __main__(){
 			if [[ $REPLY =~ ^[Yy]$ ]];then
 				OSX_SERVER_INSTALL=true
 				break
-			elif [[ $REPLY =~ ^[Yy]$ ]];then
+			elif [[ $REPLY =~ ^[Nn]$ ]];then
 				OSX_SERVER_INSTALL=false
 				break
 			fi
